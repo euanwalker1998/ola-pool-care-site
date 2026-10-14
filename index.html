@@ -2,6 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LTNZ273H1Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-LTNZ273H1Z');
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ola Pool Care — Weekly Pool Cleaning in Miami</title>
 <meta name="description" content="Weekly residential pool cleaning in Miami. Reliable weekly service, photo reports after every visit, and your first 2 weeks free.">
@@ -772,6 +780,7 @@
       if (response.ok) {
         leadForm.style.display = 'none';
         document.getElementById('form-success').classList.add('show');
+        if (typeof gtag === 'function') { gtag('event', 'generate_lead', { form_name: 'website_lead_form' }); }
       } else {
         throw new Error('Submission failed');
       }
@@ -779,6 +788,13 @@
     .catch(function(){
       leadForm.style.display = 'none';
       document.getElementById('form-error').classList.add('show');
+    });
+  });
+
+  // Track taps on any phone number link
+  document.querySelectorAll('a[href^="tel:"]').forEach(function(link){
+    link.addEventListener('click', function(){
+      if (typeof gtag === 'function') { gtag('event', 'phone_call_click', { link_location: link.className || 'link' }); }
     });
   });
 </script>
